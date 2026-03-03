@@ -8,12 +8,21 @@ public class Titik {
     /***************ATRIBUT***************/
     double absis;
     double ordinat;
+    static int counterTitik = 0;
 
     /***************METHOD***************/
     //konstruktor untuk membuat titik (0,0)
+
+    Titik(double absis, double ordinat) {
+        this.absis = absis;
+        this.ordinat = ordinat;
+        counterTitik++;
+    }
+
     Titik() {
         absis = 0;
         ordinat = 0;
+        counterTitik++;
     }
 
     //mengembalikan nilai absis
@@ -47,10 +56,53 @@ public class Titik {
         System.out.println("Titik (" + absis + "," + ordinat + ")");
     }
     
-    // Kuadran
+    // mengembalikan nilai counterTitik
+    public static int getCounterTitik() {
+        return counterTitik;
+    }
+
+    public void printCounterTitik() {
+        // System.out.println(this.counterTitik);
+        System.out.println(counterTitik);
+    }
+
+    // mengembalikan nilai kuadran titik
+    public int getKuadran() {
+        if (getAbsis() > 0 && getOrdinat() > 0) {
+            return 1;
+        } else if (getAbsis() < 0 && getOrdinat() > 0) {
+            return 2;
+        } else if (getAbsis() < 0 && getOrdinat() < 0) {
+            return 3;
+        } else if (getAbsis() > 0 && getOrdinat() < 0) {
+            return 4;
+        } else {
+            return 0;
+        }
+    }
+
+    // mengembalikan jarak titik dari titik pusat
+    public double getJarakPusat() {
+        return Math.sqrt(Math.pow(getAbsis(), 2) + Math.pow(getOrdinat(), 2));
+    }
+
+    // mengembalikan jarak titik dari titik lainnya
+    public double getJarak(Titik T) {
+        return Math.sqrt(Math.pow(this.getAbsis() - T.getAbsis(), 2) + Math.pow(this.getOrdinat() - T.getOrdinat(), 2));
+    }
+
+    // mengubah titik menjadi titik refleksi terhadap sumbu X
+    public void refleksiX() {
+        setOrdinat(getOrdinat() * -1);
+    }
+
+    // mengubah titik menjadi titik refleksi terhadap sumbu Y
+    public void refleksiY() {
+        setAbsis(getAbsis() * -1);
+    }
 
     // Mencetak Refleksi dari Titik X
-    Titik getRefelksiX(){
+    Titik getRefleksiX(){
         Titik T1 = new Titik();
         T1.setAbsis(absis);
         T1.setOrdinat(-1 * ordinat);
@@ -58,7 +110,7 @@ public class Titik {
     }
 
     // Mencetak Refleksi dari Titik Y
-    Titik getRefelksiY(){
+    Titik getRefleksiY(){
         Titik T1 = new Titik();
         T1.setAbsis(-1 * absis);
         T1.setOrdinat(ordinat);
